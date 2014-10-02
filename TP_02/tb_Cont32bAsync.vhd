@@ -1,30 +1,4 @@
---------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date:   16:36:58 10/01/2014
--- Design Name:
--- Module Name:   E:/2014/Academico/OC/2014/tp2/tb_Cont32bAsync.vhd
--- Project Name:  tp2
--- Target Device:
--- Tool versions:
--- Description:
---
--- VHDL Test Bench Created by ISE for module: Cont32bAsync
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
--- Notes:
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends
--- that these types always be used for the top-level I/O of a design in order
--- to guarantee that the testbench will bind correctly to the post-implementation
--- simulation model.
---------------------------------------------------------------------------------
+-- Ejercicio 3, contador Asíncrono
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE work.txt_util.all;

@@ -1,30 +1,4 @@
---------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date:   11:22:46 10/02/2014
--- Design Name:
--- Module Name:   /home/gsanchez/Apps/TP_02/TB_Reg_32b.vhd
--- Project Name:  TP_02
--- Target Device:
--- Tool versions:
--- Description:
---
--- VHDL Test Bench Created by ISE for module: Reg_32b
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
--- Notes:
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends
--- that these types always be used for the top-level I/O of a design in order
--- to guarantee that the testbench will bind correctly to the post-implementation
--- simulation model.
---------------------------------------------------------------------------------
+-- Ejercicio 1(a)
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 use work.txt_util.all;
