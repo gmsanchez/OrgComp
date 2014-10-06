@@ -60,8 +60,52 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin
-      -- Agregar estimulos aqui
-      wait;
+		-- check initial status
+		wait for 6 ns;
+		-- hold reset state for 5 ns.
+		RST <= '1';
+		LOAD <= '0';
+		D <= x"FAFAFAFA";
+		wait for 5 ns;
+		RST <= '0';
+		wait for 15 ns;
+		LOAD <= '1';
+      wait for 20 ns;
+		D <= x"51617181";
+		wait for 15 ns;
+		LOAD <= '0';
+		wait;
    end process;
+
+	corr_proc: process(CLK)
+		variable theTime : time;
+	begin
+		theTime := now;
+		-- report time'image(theTime);
+		if theTime=10000 ps then
+			assert (O=x"00000000")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+		if theTime=40000 ps then
+			assert (O=x"FAFAFAFA")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+		if theTime=60000 ps then
+			assert (O=x"51617181")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+		if theTime=75000 ps then
+			assert (O=x"51617181")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+	end process;
 
 END;

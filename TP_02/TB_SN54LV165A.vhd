@@ -91,8 +91,71 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin
-      -- Agregar estimulos aqui
+		nload<='1';
+      -- hold reset state for 20 ns.
+      wait for 20 ns;
+      -- insert stimulus here
+		CLKIN<='1';
+		SER<='0';
+		NLOAD<='1';
+		DIN<="00000000";
+		wait for 20 ns;
+		NLOAD<='0';
+		DIN<="11010101";
+		wait for 5 ns;
+		NLOAD<='1';
+		wait for 20 ns;
+		CLKIN<='0';
       wait;
    end process;
+
+	corr_proc: process(CLK)
+	variable theTime : time;
+	begin
+		theTime := now;
+		if theTime=30000 ps then
+			report time'image(theTime);
+			assert (q='0' and nq='1')
+				report("Salidas erroneas.")
+				severity ERROR;
+		end if;
+
+		if theTime=45000 ps then
+			report time'image(theTime);
+			assert (q='1' and nq='0')
+				report("Salidas erroneas.")
+				severity ERROR;
+		end if;
+
+		if theTime=90000 ps then
+			report time'image(theTime);
+			assert (q='0' and nq='1')
+				report("Salidas erroneas.")
+				severity ERROR;
+		end if;
+
+		if theTime=100000 ps then
+			report time'image(theTime);
+			assert (q='1' and nq='0')
+				report("Salidas erroneas.")
+				severity ERROR;
+		end if;
+
+		if theTime=110000 ps then
+			report time'image(theTime);
+			assert (q='0' and nq='1')
+				report("Salidas erroneas.")
+				severity ERROR;
+		end if;
+
+		if theTime=120000 ps then
+			report time'image(theTime);
+			assert (q='1' and nq='0')
+				report("Salidas erroneas.")
+				severity ERROR;
+		end if;
+
+
+	end process;
 
 END;

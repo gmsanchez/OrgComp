@@ -65,8 +65,73 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin
-    -- Agregar estimulos aqui
+		-- check initial status
+		wait for 6 ns;
+		-- hold reset state for 5 ns.
+		SLI <= '0';
+		RST <= '1';
+		LOAD <= '0';
+		SHL <= '0';
+		D <= x"FAFAFAFA";
+		wait for 5 ns;
+		RST <= '0';
+		wait for 15 ns;
+		LOAD <= '1';
+		SHL <= '1';
+      wait for 20 ns;
+		D <= x"00000040"; -- Cargo un 64
+		wait for 15 ns;
+		LOAD <= '0';
+		SHL <= '0';
+		wait for 10 ns;
+		-- Hasta acá es igual al el otro registro. Empecemos los shift.
+		LOAD <= '0';
+		SHL <= '1';
+		wait for 60 ns;
 		wait;
    end process;
+
+	corr_proc: process(CLK)
+		variable theTime : time;
+	begin
+		theTime := now;
+		-- report time'image(theTime);
+		if theTime=10000 ps then
+			assert (O=x"00000000")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+		if theTime=40000 ps then
+			assert (O=x"FAFAFAFA")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+		if theTime=60000 ps then
+			assert (O=x"00000040")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+		if theTime=70000 ps then
+			assert (O=x"00000040")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+		if theTime=100000 ps then
+			assert (O=x"00000200")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+		if theTime=120000 ps then
+			assert (O=x"00000800")
+				report "Resultado erroneo a los " & time'image(theTime) & " O=" & str(O)
+				severity ERROR;
+		end if;
+
+	end process;
 
 END;
